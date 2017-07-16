@@ -10,6 +10,7 @@
       "email": "lucasjkr@me.com"
     }
   ],
+  "minimum-stability": "stable",
   "require": {
     "php": ">=7.0.0"
   },
