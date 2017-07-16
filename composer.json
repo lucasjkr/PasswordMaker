@@ -1,21 +1,13 @@
-
 {
-  "name": "lucasjkr/PasswordMaker",
-  "description": "A simple Composer Package for creating random passwords",
-  "license": "MIT",
-  "keywords": ["PHP password"],
-  "authors": [
-    {
-      "name": "lucasjkr",
-      "email": "lucasjkr@me.com"
+    "name": "lucasjkr/password-maker",
+    "description": "A simple utility for creating secure passwords.",
+    "license": "MIT",
+    "require": {},
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "PasswordMaker": "src/"
     }
-  ],
-  "require": {
-    "php": ">=7.0.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "lucasjkr\\PasswordMaker\\": "src"
-    }
-  }
 }
