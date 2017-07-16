@@ -1,6 +1,7 @@
 
 {
   "name": "lucasjkr/password-maker",
+  "version": "1.0.0" 
   "description": "A simple Composer Package for creating random passwords",
   "license": "MIT",
   "keywords": ["PHP password"],
