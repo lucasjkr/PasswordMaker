@@ -76,7 +76,7 @@ class Custom {
 		// Omit quotes, double quotes, and ticks as they can
 		// be confusing to read in some circumstances.
 
-		$string = '!@#$%^&*()-_=+~[]{}|/\<>,.?';
+		$string = '!@#$%^&*()-_=+~[]{}|/\,.?';
 		$max    = strlen($string) - 1;
 		return $string[random_int(0, $max)];
 	}
