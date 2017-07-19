@@ -3,25 +3,33 @@ namespace Lucasjkr\PasswordMaker;
 
 class Simple {
 
-    public function generate($length = 1) {
+    private $character;
+
+    public function __construct()
+    {
+        // none of the following characters:
+        // '  "  i  I  l  L  o  O  1  0  <  >  & | %
+        $this->character  = 'abcdefghjkmnpqrstuvwxyz';
+        $this->character .= 'ABCDEFGHJKMNPQRSTUVWXYZ';
+        $this->character .= '23456789';
+        $this->character .= '!@#$^*-_=+,.?()\/[]{}';
+    }
+
+    public function generate($length = 1)
+    {
         $password = '';
-        for ($i = 1; $i <= $length; $i++) {
+        for ($i = 1; $i <= $length; $i++)
+        {
             $password .= $this->randomCharacter();
         }
         return $password;
     }
 
-    private function randomCharacter(){
-        // none of the following characters:
-        // '  "  i  I  l  L  o  O  1  0  <  >  &
-        $chars  = 'abcdefghjkmnpqrstuvwxyz';
-        $chars .= 'ABCDEFGHJKMNPQRSTUVWXYZ';
-        $chars .= '23456789';
-        $chars .= '!@#$%^*-_=+|,.?()|\/[]{}';
+    private function randomCharacter()
+    {
+        $length = strlen($this->character) - 1;
 
-        $length = strlen($chars) - 1;
-
-        return htmlspecialchars($chars[random_int(0, $length)]);
+        return $this->character[random_int(0, $length)];
     }
 
 }

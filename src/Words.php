@@ -4,17 +4,31 @@ namespace Lucasjkr\PasswordMaker;
 
 class Words
 {
-    private $dictionary;
-    public $leetify = false;
-    public $chance   = 100;
+    // set to true to turn on character swapping
+    public $leetify    = false;
 
-    public function __get($property) {
-        if (property_exists($this, $property)) {
+    // if leetify is set to true, this sets the likelihood (in percentage terms) that any applicable character could be swapped
+    public $chance     = 100;
+
+    // set this to true to capitalize each word
+    public $capitalize = false;
+
+    // path to the dictionary file
+    public $file;
+
+    // This is where the dictionary will get loaded into
+    private $wordArray = array();
+
+    public function __get($property)
+    {
+        if (property_exists($this, $property))
+        {
             return $this->$property;
         }
     }
 
-    public function __set($property, $value) {
+    public function __set($property, $value)
+    {
         if (property_exists($this, $property)) {
             $this->$property = $value;
         }
@@ -22,44 +36,76 @@ class Words
         return $this;
     }
 
-    public function generate($number_of_words) {
+    // constructor takes the dictionary file as input. This should be a text file with a single entry per line.
+    public function __construct($textfile)
+    {
+        $this->file      = $textfile;
+        $this->wordArray = $this->createArrayFromInputFile();
+    }
+
+    // the controller (or whatever feeds data into this function) should check to make sure an outlandishly large
+    // number isn't provided as input, as it will probably kill the server!
+    public function generate($numberOfWords) {
         $result = '';
-        for ($i = 1; $i <= $number_of_words; $i++) {
+
+        // generate a series of randomly selected words
+        for ($i = 1; $i <= $numberOfWords; $i++)
+        {
             $result .= $this->randomWord() . " ";
         }
 
-        if($this->leetify == true){
+        // apply optional capitalization transformation
+        if($this->capitalize == true)
+        {
+            $result = ucwords($result);
+        }
+
+        // apply optional 'leetification' of the string
+        if($this->leetify == true)
+        {
             return $this->leetChars($result);
         }
 
         return $result;
     }
 
-    private function randomWord() {
-        $filename = $this->dictionary;
+    private function loadDictionary()
+    {
+        $filename = $this->file;
         $handle = fopen($filename, "r");
-        $contents = fread($handle, filesize($filename));
+        $result = fread($handle, filesize($filename));
         fclose($handle);
-        $words = explode("\r", $contents);
-        $result = strtolower($words[random_int(0, count($words)-1)]);
         return $result;
     }
 
-    private function leetChars($string){
+    private function createArrayFromInputFile()
+    {
+        $dictionary = $this->loadDictionary();
+        return explode("\r", $dictionary);
+    }
+
+    private function randomWord()
+    {
+        $words  = $this->wordArray;
+        return strtolower($words[random_int(0, count($words)-1)]);
+
+    }
+
+    private function leetChars($string)
+    {
         $chars  = str_split($string);
         $result = '';
 
         foreach ($chars as $c) {
-            $r       = random_int(0, 100);
-            $input   = array('a', 'b', 'e', 'g', 'i', 'l', 'o', 's', 't');
-            $output  = array('4', '8', '3', '6', '!', '1', '0', '5', '7');
+            $r       = random_int(1, 100);
+            $input   = array('a', 'A', 'b', 'e', 'g', 'H', 'i', 'l', 'o', 's', 't', 'T');
+            $output  = array('@', '4', '8', '3', '6', '#', '!', '1', '0', '5', '+', '7');
 
             if($r <= $this->chance) {
                 $result .= str_replace($input, $output, $c);
             } else {
                 $result .= $c;
             }
-
         }
 
         return $result;
