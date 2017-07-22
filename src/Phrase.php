@@ -2,19 +2,26 @@
 
 namespace Lucasjkr\PasswordMaker;
 
-class Words
+class Phrase
 {
-    // set to true to turn on character swapping
+    /********************************************************************************/
+    /*                                                                              */
+    /*   $leetify - set to true to turn on "hacker" character swapping              */
+    /*                                                                              */
+    /*   $chance  - only applies if $leetify is true, allows user to specify        */
+    /*              likelihood that each substitutable character actually gets      */
+    /*              subsituted                                                      */
+    /*                                                                              */
+    /*   $capitalize - set to true to capitalize each word                          */
+    /*                                                                              */
+    /********************************************************************************/
+
     public $leetify    = false;
-
-    // if leetify is set to true, this sets the likelihood (in percentage terms) that any applicable character could be swapped
     public $chance     = 100;
-
-    // set this to true to capitalize each word
     public $capitalize = false;
 
     // path to the dictionary file
-    public $file;
+    private $textfile;
 
     // This is where the dictionary will get loaded into
     private $wordArray = array();
@@ -39,7 +46,7 @@ class Words
     // constructor takes the dictionary file as input. This should be a text file with a single entry per line.
     public function __construct($textfile)
     {
-        $this->file      = $textfile;
+        $this->textfile  = $textfile;
         $this->wordArray = $this->createArrayFromInputFile();
     }
 
@@ -71,7 +78,7 @@ class Words
 
     private function loadDictionary()
     {
-        $filename = $this->file;
+        $filename = $this->textfile;
         $handle = fopen($filename, "r");
         $result = fread($handle, filesize($filename));
         fclose($handle);

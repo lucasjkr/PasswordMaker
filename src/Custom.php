@@ -38,7 +38,7 @@ class Custom {
 
         $this->letter    = 'abcdefghjkmnpqrstuvwxyz';
         $this->number    = '23456789';
-        $this->symbol    = '!@#$^&*()-_=+~[]{}/\,.?';
+        $this->symbol    = '!@#$^*()-_=+~[]{}/\,.?';
     }
 
 	public function generate()
