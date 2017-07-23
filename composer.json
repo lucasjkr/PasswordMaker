@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple Composer Package for creating random passwords",
   "license": "MIT",
-  "keywords": ["PHP, PHP7, password generator, secure password, random password"],
+  "keywords": ["PHP password generator secure random"],
   "authors": [
     {
       "name": "lucasjkr",
