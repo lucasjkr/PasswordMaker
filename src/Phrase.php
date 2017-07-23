@@ -88,7 +88,7 @@ class Phrase
     private function createArrayFromInputFile()
     {
         $dictionary = $this->loadDictionary();
-        return explode("\r", $dictionary);
+        return explode("\n", $dictionary);
     }
 
     private function randomWord()
