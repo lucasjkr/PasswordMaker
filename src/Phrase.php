@@ -22,9 +22,11 @@ class Phrase
 
     // path to the dictionary file
     private $textfile;
+    private $wordList;
+    private $wordCount;
 
     // This is where the dictionary will get loaded into
-    private $wordArray = array();
+    private $words = array();
 
     public function __get($property)
     {
@@ -47,7 +49,8 @@ class Phrase
     public function __construct($textfile)
     {
         $this->textfile  = $textfile;
-        $this->wordArray = $this->createArrayFromInputFile();
+        $this->wordList  = $this->createArrayFromInputFile();
+        $this->wordCount = count($this->wordList);
     }
 
     // the controller (or whatever feeds data into this function) should check to make sure an outlandishly large
@@ -73,7 +76,7 @@ class Phrase
             return $this->leetChars($result);
         }
 
-        return $result;
+        return trim($result);
     }
 
     private function loadDictionary()
@@ -93,9 +96,7 @@ class Phrase
 
     private function randomWord()
     {
-        $words  = $this->wordArray;
-        return strtolower($words[random_int(0, count($words)-1)]);
-
+        return strtolower($this->wordList[random_int(0, ($this->wordCount - 1))]);
     }
 
     private function leetChars($string)
