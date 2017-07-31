@@ -4,6 +4,10 @@ namespace Lucasjkr\PasswordMaker;
 
 class Custom {
 
+    /********************************************************************************/
+    /*  PasswordMaker Version 1.1                                                   */
+    /********************************************************************************/
+
     private $uppers;
     private $lowers;
     private $numbers;
@@ -34,11 +38,11 @@ class Custom {
         // characters omitted from possible passwords include:
         // i, I, l, L, 1, |
         // 0, o, O
-        // &, %, <, >
+        // &, %, <, >, \
 
         $this->letter    = 'abcdefghjkmnpqrstuvwxyz';
         $this->number    = '23456789';
-        $this->symbol    = '!@#$^*()-_=+~[]{}/\,.?';
+        $this->symbol    = '!@#$^*()-_=+~[]{}/,.?';
     }
 
 	public function generate()
