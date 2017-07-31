@@ -8,9 +8,22 @@ No matter which method you choose, care should be taken to validated the values 
 To include this in your project, either:
 
 * Download from Github
-* Pull the package into your project with `composer require lucasjkr/password-maker dev-master`
+* Pull the latest package into your project with `composer require lucasjkr/password-maker dev-master`
+
+You can see a demonstration at my site:
+
+[www.lucaskrupinski.com/stuff/passwordmaker](http://lucaskrupinski.app:8080/stuff/passwordmaker)
+
+
+## Version History
+
+1.0 - Initial release, includes *Simple*, *Custom*, and *Words* methods
+
+1.1 - Added *Groups* method
+
 
 ###Simple
+
 Randomly picks characters from the alphabet I provided it. All that's needed to use this is to tell it the length of the password you want to generate.
 
     use Lucasjkr\PasswordMaker\Simple as Simple;
@@ -22,6 +35,7 @@ Randomly picks characters from the alphabet I provided it. All that's needed to 
 **Example output:** `CD$\[daJ`
     
 ###Custom
+
 Same logic as Simple, except you choose how many uppercase, lowercase, numbers and symbols there are. Example:
 
     use Lucasjkr\PasswordMaker\Custom as Custom;
@@ -37,6 +51,7 @@ Same logic as Simple, except you choose how many uppercase, lowercase, numbers a
 **Example output:** `K~tPv2WPzm`
 
 ##Phrase
+
 This is basically a [Correct Horse Battery Stapler](https://www.xkcd.com/936/) generator of your own. Feed it a source of words, tell it how many random words to choose, and there's a password for you.
     
     use Lucasjkr\PasswordMaker\Phrase as Phrase;
@@ -49,6 +64,7 @@ This is basically a [Correct Horse Battery Stapler](https://www.xkcd.com/936/) g
 
 
 ###Phrase/Capitalize
+
 Capitalizes the first letter of each word to improve readabilty.
 
     use Lucasjkr\PasswordMaker\Words as Words;
@@ -62,6 +78,7 @@ Capitalizes the first letter of each word to improve readabilty.
 **Example output:** `Groove Blare Gob Treadmill`
 
 ###Phrase/Leetify
+
 Additionally, you can specify "Leet Speak" transformations to be made on the output, and choose the frequency that those subsitutions will occur. This can be combined with the capitalize transformation:
 
     use Lucasjkr\PasswordMaker\Words as Words;
@@ -80,3 +97,27 @@ Additionally, you can specify "Leet Speak" transformations to be made on the out
 I would caution against setting the chance too high - part of the appeal of using a series of words as a password is that its easily memorizable, yet potentially harder to brute force. If you set it too high, it could be harder to memorize, and could become more predicable (as the point is to introduce uncertainty - if an attacker knows that every instance of `e` will be replaced by `3`, you've done nothing but make your password harder to memorize)`
 
 Setting `chance` to 100 will transform output like `compiled braket between dime` into `c0mp!13d 8r4ck37 837w33n d!m3`
+
+### Groups 
+
+Groups produces (you guessed it), groups of characters with delimiters of your choice. You choose how many groupings to produce, the number of characters in each grouping, what delimiter to use, and whether groupw will be composed of uppercase, lowercase, numbers or symbols:
+
+    use Lucasjkr\PasswordMaker\Groups as Groups;
+    $password = new Groups();
+    
+    $password->sets     = 3;
+    $password->size     = 6;
+    $password->delimter = '-';
+    
+And then add at least one character type:
+
+    $password->lowers   = true;
+    
+**Example output:** `vtfuks-vudtwd-ukutwv`
+
+    $password->uppers   = true;
+    $password->numbers  = true;
+    
+**Example output:** `CTR4QW-QRAJWS-K2BWZ8`
+
+Questions? Comments? Issues? Let me know.

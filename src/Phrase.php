@@ -5,6 +5,7 @@ namespace Lucasjkr\PasswordMaker;
 class Phrase
 {
     /********************************************************************************/
+    /*   PasswordMaker Version 1.1                                                  */
     /*                                                                              */
     /*   $leetify - set to true to turn on "hacker" character swapping              */
     /*                                                                              */
